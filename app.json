@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "app-start-template",
-    "slug": "app-start-template",
+    "name": "skolar",
+    "slug": "skolar",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "potrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
