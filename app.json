@@ -3,7 +3,7 @@
     "name": "skolar",
     "slug": "skolar",
     "version": "1.0.0",
-    "orientation": "potrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {

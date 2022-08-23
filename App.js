@@ -1,3 +1,8 @@
+// written by Ajadi Mayowa Samuel
+// pushed on 21st 08 2022
+// for float solution hub
+// 08166064166
+
 import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';

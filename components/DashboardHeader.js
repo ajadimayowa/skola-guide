@@ -5,10 +5,10 @@ import {
 import Hamburger from './Hamburger';
 import { Ionicons } from "@expo/vector-icons"
 
-function DashboardHeader() {
+function DashboardHeader({ action, settingsFunction }) {
     return (
         <View style={styles.container}>
-            <Hamburger />
+            <Hamburger action={action} />
             <Text style={styles.titleText}>Skolar</Text>
             <Pressable style={({ pressed }) => pressed ?
                 [styles.pressedIcon, styles.icon] : [styles.icon]}>

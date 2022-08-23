@@ -18,6 +18,8 @@ export const Science_Courses = [
     new Course(5, 'Chemistry'),
 ]
 
+export const DashboardActions = ['Find A Tutor', 'Find A Library', 'Join Book Club']
+
 export const Art_Courses = [
     new Course(1, 'Applied Art', '#12ADC1'),
     new Course(1, 'Fine Art', '#12ADC1'),

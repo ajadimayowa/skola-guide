@@ -2,9 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import {
     StyleSheet, Text, View, SafeAreaView,
     ImageBackground,
-    FlatList, useWindowDimensions, ScrollView
+    FlatList, useWindowDimensions
 } from 'react-native';
-import DashboardL from './DashboardL';
 import { LinearGradient } from 'expo-linear-gradient';
 import DashboardHeader from '../components/DashboardHeader';
 import SearchBar from '../components/SearchBar';
@@ -15,25 +14,14 @@ import { DEPARTMENTS } from '../data/DataBox'
 import { DashboardActions } from '../data/DataBox'
 import { MaterialIcons } from "@expo/vector-icons"
 import DirectionButton from '../components/DirectionButton';
-import SideNavigation from '../components/SideNavigation';
 import { useState } from 'react';
 
-function Dashboard() {
+function DashboardL() {
     const [counter, addCounterUp] = useState(0)
-    const [onSideNav, setSideNav] = useState(false)
 
     const { width } = useWindowDimensions()
 
     let deviceWidth = width
-
-    if (deviceWidth > 450) {
-        return <ScrollView style={landscapeStyle.container}><DashboardL /></ScrollView>
-    }
-
-    function toggleSideNav() {
-        setSideNav(!onSideNav)
-        console.log('nav on')
-    }
 
     function nextAction() {
         if (counter === 0 || counter < 2) {
@@ -70,10 +58,8 @@ function Dashboard() {
                     <View style={
                         styles.container
                     }>
-                        <SideNavigation toggleSideNav={onSideNav} toggle={toggleSideNav} />
-                        <DashboardHeader action={toggleSideNav} />
+                        <DashboardHeader />
                         <SearchBar />
-
                         <TitleText />
                         <ParagraphTexts />
                         <View style={{ height: '40%', width: '90%', marginTop: '5%', alignItems: 'center' }}>
@@ -88,8 +74,10 @@ function Dashboard() {
                                 direction={"keyboard-arrow-right"}
                                 size={24} color={'#fff'} action={nextAction} />
                         </View>
+
                     </View>
                 </SafeAreaView>
+
 
 
             </ImageBackground>
@@ -98,7 +86,7 @@ function Dashboard() {
     );
 }
 
-export default Dashboard;
+export default DashboardL;
 
 const styles = StyleSheet.create({
     screen: {

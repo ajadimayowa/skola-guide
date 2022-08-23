@@ -19,8 +19,8 @@ export default TitleText;
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-
-        // backgroundColor: 'red'
+        marginTop: '10%',
+        marginBottom: '2%'
     },
     titleText: {
         color: '#E79C3D',
