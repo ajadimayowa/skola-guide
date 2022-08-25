@@ -6,30 +6,29 @@ import { Fontisto } from "@expo/vector-icons"
 import { Ionicons } from "@expo/vector-icons"
 import { MaterialIcons } from "@expo/vector-icons"
 
-function DepartmentHolder({ action, deptImage, deptTitle }) {
+function DepartmentBookHolder({ action, id, bookTitle }) {
 
     return (
         <Pressable onPress={action} style={({ pressed }) => pressed ? [styles.pressed, styles.container] : [styles.container]}>
-            <View style={styles.container} >
-                <MaterialIcons name={deptImage} size={50} color="#fff" />
-                <Text style={styles.titleText}>{deptTitle}</Text>
-            </View>
+            <Text style={styles.titleText}>{id}</Text>
+            <Text style={styles.titleText}>{bookTitle}</Text>
         </Pressable>
     );
 }
 
-export default DepartmentHolder;
+export default DepartmentBookHolder;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#E79C3D',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: '#fff',
         padding: 5,
-        borderRadius: 5,
-        width: 126,
-        height: 111,
-        margin: 10
+        height: 65,
+        marginVertical: 10,
+        paddingRight: 30,
+
 
     },
     pressed: {
@@ -37,9 +36,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#8E5E20'
     },
     titleText: {
-        color: '#fff',
+        color: '#252650',
         fontFamily: 'avenir',
-        fontSize: 13,
-        fontWeight: "500"
+        fontSize: 15,
+        fontWeight: "500",
+        textAlign: 'left',
+        marginLeft: 30
     }
 });

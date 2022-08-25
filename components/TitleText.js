@@ -4,13 +4,13 @@ import {
 } from 'react-native';
 import Hamburger from './Hamburger';
 import { Ionicons } from "@expo/vector-icons"
+import { Children } from 'react';
 
-function TitleText() {
+function TitleText({ children }) {
     return (
-        <View style={styles.container}>
-            <Text style={styles.titleText}>Choose
-                Department</Text>
-        </View>
+
+        <Text style={styles.titleText}>{children}</Text>
+
     );
 }
 
@@ -18,7 +18,6 @@ export default TitleText;
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
         marginTop: '10%',
         marginBottom: '2%'
     },
@@ -26,5 +25,7 @@ const styles = StyleSheet.create({
         color: '#E79C3D',
         fontFamily: 'avenir',
         fontSize: 40,
+        width: '100%',
+        marginTop: 25
     }
 });

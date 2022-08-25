@@ -4,6 +4,7 @@ import {
     ImageBackground,
     FlatList, useWindowDimensions, ScrollView
 } from 'react-native';
+import Platform from 'react-native';
 import DashboardL from './DashboardL';
 import { LinearGradient } from 'expo-linear-gradient';
 import DashboardHeader from '../components/DashboardHeader';
@@ -13,12 +14,11 @@ import ParagraphTexts from '../components/ParagraphTexts';
 import DepartmentHolder from '../components/DepartmentHolder';
 import { DEPARTMENTS } from '../data/DataBox'
 import { DashboardActions } from '../data/DataBox'
-import { MaterialIcons } from "@expo/vector-icons"
 import DirectionButton from '../components/DirectionButton';
 import SideNavigation from '../components/SideNavigation';
 import { useState } from 'react';
 
-function Dashboard() {
+function Dashboard({ navigation }) {
     const [counter, addCounterUp] = useState(0)
     const [onSideNav, setSideNav] = useState(false)
 
@@ -54,7 +54,12 @@ function Dashboard() {
     }
 
     function handleDepartmentRender(departments) {
-        return <DepartmentHolder deptImage={departments.item.icon_name}
+        function gotoSelectedDepartmentBooks() {
+            const tappedDept = departments.item.name_of_department
+            console.log(tappedDept)
+            navigation.navigate('Books')
+        }
+        return <DepartmentHolder action={gotoSelectedDepartmentBooks} deptImage={departments.item.icon_name}
             deptTitle={departments.item.name_of_department} />
 
     }
@@ -74,7 +79,9 @@ function Dashboard() {
                         <DashboardHeader action={toggleSideNav} />
                         <SearchBar />
 
-                        <TitleText />
+                        <TitleText>Choose
+                            Department.
+                        </TitleText>
                         <ParagraphTexts />
                         <View style={{ height: '40%', width: '90%', marginTop: '5%', alignItems: 'center' }}>
                             <FlatList numColumns={2} bounces={false} data={DEPARTMENTS}

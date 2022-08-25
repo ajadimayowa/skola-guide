@@ -6,15 +6,19 @@
 import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import {
   StyleSheet, Text, View, SafeAreaView,
   ImageBackground
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
-import LoginScreen from './screens/LoginScreen';
+import LoginScreen from './screens/LoginScreen'
 import SignupScreen from './screens/SignUpScreen';
 import Dashboard from './screens/Dashboard';
+import DepartmentBooksScreen from './screens/DepartmentBooksScreen'
+
+let screenStacks = createNativeStackNavigator()
 
 export default function App() {
 
@@ -34,12 +38,14 @@ export default function App() {
   let screen = <Dashboard />
   return (
     <>
-      <StatusBar style="light" />
-      <LinearGradient colors={['#252650', '#01010B']} style={styles.container}>
-        <ImageBackground style={styles.container} resizeMode="stretch" source={require('./assets/images/main-bg.png')}>
-          {screen}
-        </ImageBackground>
-      </LinearGradient>
+      <StatusBar style="dark" />
+      <NavigationContainer>
+        <screenStacks.Navigator>
+          <screenStacks.Screen name='Dashboard' component={Dashboard} />
+          <screenStacks.Screen name='Books' component={DepartmentBooksScreen} />
+          <screenStacks.Screen name='Login Screen' component={LoginScreen} />
+        </screenStacks.Navigator>
+      </NavigationContainer>
     </>
   );
 }

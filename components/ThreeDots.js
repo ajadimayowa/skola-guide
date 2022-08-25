@@ -1,34 +1,32 @@
 
 import { StatusBar } from 'expo-status-bar';
 import {
-    StyleSheet, View, Pressable
+    StyleSheet, Text, View, Image, Pressable
 } from 'react-native';
-import { MaterialIcons } from "@expo/vector-icons"
+import { Entypo } from "@expo/vector-icons"
 
-function DirectionButton({ action, direction, color, size, externalStyle }) {
+function ThreeDots({ action, externalStyle }) {
     return (
         <Pressable onPress={action} style={({ pressed }) => pressed ? [styles.pressed, styles.container, externalStyle] : [styles.container, externalStyle]}>
             <View style={[styles.container, externalStyle]} >
-                <MaterialIcons name={direction} color={color} size={size} />
+                <Entypo name="dots-three-horizontal" size={25} color='#E79C3D' />
             </View>
         </Pressable>
     );
 }
 
-export default DirectionButton;
+export default ThreeDots;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#E79C3D',
         alignItems: 'center',
         padding: 5,
         justifyContent: 'center',
-        borderRadius: 17,
-        height: 34,
-        width: 34
+        borderRadius: 5,
+        height: 40,
+        width: 45
     },
     pressed: {
         opacity: 0.8,
-        backgroundColor: '#8E5E20'
     }
 });
