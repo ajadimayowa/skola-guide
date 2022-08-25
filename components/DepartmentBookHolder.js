@@ -6,10 +6,11 @@ import { Fontisto } from "@expo/vector-icons"
 import { Ionicons } from "@expo/vector-icons"
 import { MaterialIcons } from "@expo/vector-icons"
 
-function DepartmentBookHolder({ action, id, bookTitle }) {
+function DepartmentBookHolder({ action, id, bookTitle, holderColor }) {
 
     return (
-        <Pressable onPress={action} style={({ pressed }) => pressed ? [styles.pressed, styles.container] : [styles.container]}>
+        <Pressable onPress={action} style={({ pressed }) => pressed ? [styles.pressed, styles.container] :
+            [styles.container, { backgroundColor: holderColor }]}>
             <Text style={styles.titleText}>{id}</Text>
             <Text style={styles.titleText}>{bookTitle}</Text>
         </Pressable>

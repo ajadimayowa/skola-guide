@@ -8,32 +8,65 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons'
 import TitleText from '../components/TitleText';
 import Nav from '../components/Nav';
+
 import DepartmentBookHolder from '../components/DepartmentBookHolder';
+
 import { Science_Courses } from '../data/DataBox'
-import { useState } from 'react';
+import { Art_Courses } from '../data/DataBox'
+import { Finance_Courses } from '../data/DataBox'
+import { Trivia_Courses } from '../data/DataBox'
 
-function DepartmentBooksScreen({ chosenDept }) {
-    const [books, setBooks] = useState(Science_Courses)
+import { useState, useEffect } from 'react';
+import DirectionButton from '../components/DirectionButton';
 
-    function filterBookList(id) {
-        const filteredBookList = Science_Courses.filter((presentBooks) => presentBooks.course_id != id)
-        setBooks(filteredBookList)
+function DepartmentBooksScreen({ navigation, route }) {
 
+    const { tappedDept, tappedDeptImage } = route.params
+
+    const tappedDeptTitle = tappedDept
+    const tappedDeptIconImage = tappedDeptImage
+
+    const [books, setBooks] = useState()
+
+    useEffect(() => {
+        if (tappedDeptTitle === 'Trivia') {
+            setBooks(Trivia_Courses)
+        }
+        if (tappedDeptTitle === 'Science') {
+            setBooks(Science_Courses)
+        }
+        if (tappedDeptTitle === 'Finance') {
+            setBooks(Finance_Courses)
+        }
+        if (tappedDeptTitle === 'Art') {
+            setBooks(Art_Courses)
+        }
+    }, [tappedDeptTitle, books])
+
+
+
+
+    function goBack() {
+        navigation.goBack()
     }
+
     return (
         <LinearGradient colors={['#252650', '#01010B']} style={styles.screenDefault}>
             <ImageBackground style={styles.screenDefault} resizeMode="stretch"
                 source={require('../assets/images/dashboard-bg-image.png')}>
                 <SafeAreaView style={styles.screenDefault}>
                     <View style={styles.container}>
-                        <Nav externalStyle={styles.header} />
-                        <MaterialIcons name="science" size={50} color="#fff" />
+                        <Nav arrowAction={goBack} externalStyle={styles.header} />
+                        <MaterialIcons name={tappedDeptIconImage} size={50} color="#fff" />
                         <TitleText>Available
-                            Science Books.</TitleText>
+                            {' '}{tappedDeptTitle} Books.</TitleText>
                         <FlatList contentContainerStyle={styles.listContainerStyle}
                             data={books} renderItem={(books) =>
-                                <DepartmentBookHolder action={filterBookList.bind(this, books.item.course_id)} id={books.item.course_id} bookTitle={books.item.course_name} />
+                                <DepartmentBookHolder holderColor={books.item.color_code} id={books.item.course_id} bookTitle={books.item.course_name} />
                             } style={{ width: '100%' }} />
+                        <View style={{ width: '100%', alignItems: 'flex-end', paddingHorizontal: '10%', marginTop: 15 }}>
+                            <DirectionButton color={'#fff'} size={24} direction={'add'} externalStyle={{ backgroundColor: '#E79C3D' }} />
+                        </View>
                     </View>
                 </SafeAreaView>
             </ImageBackground>
@@ -65,11 +98,12 @@ const styles = StyleSheet.create({
         fontFamily: 'montserrat-bold'
     },
     header: {
-        marginBottom: 30
+        marginBottom: 20
     },
     listContainerStyle: {
         width: '100%',
-        justifyContent: 'center',
+
+        justifyContent: 'flex-start',
         marginTop: 10
     }
 });

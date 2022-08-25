@@ -16,13 +16,16 @@ import { DEPARTMENTS } from '../data/DataBox'
 import { DashboardActions } from '../data/DataBox'
 import DirectionButton from '../components/DirectionButton';
 import SideNavigation from '../components/SideNavigation';
+import DashboardActivity from '../components/DashboardActivity';
 import { useState } from 'react';
 
 function Dashboard({ navigation }) {
+
     const [counter, addCounterUp] = useState(0)
     const [onSideNav, setSideNav] = useState(false)
-
     const { width } = useWindowDimensions()
+
+    const activityText = DashboardActions[counter].toString()
 
     let deviceWidth = width
 
@@ -32,34 +35,37 @@ function Dashboard({ navigation }) {
 
     function toggleSideNav() {
         setSideNav(!onSideNav)
-        console.log('nav on')
     }
 
     function nextAction() {
-        if (counter === 0 || counter < 2) {
+        if (counter === 0 || counter < DashboardActions.length - 1) {
             addCounterUp(counter + 1)
-            console.log(deviceWidth)
+
         } else {
             addCounterUp(0)
         }
     }
 
     function prevAction() {
-        if (counter > 0 || counter === 2) {
+        if (counter > 0 || counter === DashboardActions.length - 1) {
             addCounterUp(counter - 1)
-            console.log(counter)
         } else {
             addCounterUp(2)
         }
     }
 
+    function goToSelectedActivity(pressedActivity) {
+        console.log('switching to: ', pressedActivity)
+    }
+
     function handleDepartmentRender(departments) {
-        function gotoSelectedDepartmentBooks() {
+        function goToBookListPage() {
             const tappedDept = departments.item.name_of_department
-            console.log(tappedDept)
-            navigation.navigate('Books')
+            const tappedDeptImage = departments.item.icon_name
+            navigation.navigate('Books', { tappedDept, tappedDeptImage })
         }
-        return <DepartmentHolder action={gotoSelectedDepartmentBooks} deptImage={departments.item.icon_name}
+
+        return <DepartmentHolder action={goToBookListPage} deptImage={departments.item.icon_name}
             deptTitle={departments.item.name_of_department} />
 
     }
@@ -90,7 +96,9 @@ function Dashboard({ navigation }) {
                             />
                         </View>
                         <View style={styles.serviceArea}><DirectionButton action={prevAction} direction={"keyboard-arrow-left"}
-                            size={24} color={'#fff'} /><Text style={styles.p}>{DashboardActions[counter]}</Text>
+                            size={24} color={'#fff'} /><DashboardActivity
+                                action={goToSelectedActivity.bind(this, activityText)}>
+                                {DashboardActions[counter]}</DashboardActivity>
                             <DirectionButton
                                 direction={"keyboard-arrow-right"}
                                 size={24} color={'#fff'} action={nextAction} />
@@ -120,7 +128,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: '5%',
         paddingVertical: '5%',
         paddingBottom: 50
-        // backgroundColor: 'red',
     },
     p: {
         color: '#fff',

@@ -26,6 +26,6 @@ const styles = StyleSheet.create({
         fontFamily: 'avenir',
         fontSize: 40,
         width: '100%',
-        marginTop: 25
+        marginTop: 25,
     }
 });
