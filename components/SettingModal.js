@@ -8,11 +8,11 @@ import { MaterialIcons } from "@expo/vector-icons"
 import Hamburger from './Hamburger';
 "slideInLeft"
 
-function SideNavigation({ toggleSideNav, toggle, directionIn, directionOut, position }) {
+function SettingModal({ state, toggleOff, position }) {
 
     return (
-        <Modal swipeDirection='up' isVisible={toggleSideNav} onBackdropPress={toggle}
-            animationIn="slideInLeft" animationOut="slideOutLeft">
+        <Modal style={styles.modal} isVisible={state} onBackdropPress={toggleOff}
+            animationIn="slideInRight" animationOut="slideOutRight">
 
             <View style={styles.container} >
                 <Text style={styles.p}>Side Bar</Text>
@@ -22,7 +22,7 @@ function SideNavigation({ toggleSideNav, toggle, directionIn, directionOut, posi
     );
 }
 
-export default SideNavigation;
+export default SettingModal;
 
 const styles = StyleSheet.create({
     container: {
@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
         borderRadius: 17,
         height: '50%',
         width: '50%'
+    },
+    modal: {
+        alignItems: 'flex-end'
     },
     pressed: {
         opacity: 0.8,

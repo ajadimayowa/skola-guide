@@ -16,7 +16,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import LoginScreen from './screens/LoginScreen'
 import SignupScreen from './screens/SignUpScreen';
 import Dashboard from './screens/Dashboard';
-import DepartmentBooksScreen from './screens/DepartmentBooksScreen'
+import DepartmentBooksScreen from './screens/DepartmentBooksScreen';
+import DirectionButton from './components/DirectionButton'
 
 let screenStacks = createNativeStackNavigator()
 
@@ -40,10 +41,15 @@ export default function App() {
     <>
       <StatusBar style="dark" />
       <NavigationContainer>
-        <screenStacks.Navigator>
+        <screenStacks.Navigator screenOptions={{
+          title: '',
+          headerStyle: { backgroundColor: '#252650' },
+          headerTintColor: 'white',
+        }
+        }>
           <screenStacks.Screen name='Dashboard' component={Dashboard} />
           <screenStacks.Screen name='Books' component={DepartmentBooksScreen} />
-          <screenStacks.Screen name='Login Screen' component={LoginScreen} />
+          <screenStacks.Screen name='LoginScreen' component={LoginScreen} />
         </screenStacks.Navigator>
       </NavigationContainer>
     </>

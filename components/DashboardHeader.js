@@ -10,7 +10,7 @@ function DashboardHeader({ action, settingsFunction }) {
         <View style={styles.container}>
             <Hamburger action={action} />
             <Text style={styles.titleText}>Skolar</Text>
-            <Pressable style={({ pressed }) => pressed ?
+            <Pressable onPress={settingsFunction} style={({ pressed }) => pressed ?
                 [styles.pressedIcon, styles.icon] : [styles.icon]}>
                 <Ionicons style={styles.icon} name="settings" size={24} />
             </Pressable>
@@ -23,11 +23,15 @@ export default DashboardHeader;
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
+        alignItems: 'flex-end',
+        paddingHorizontal: 40,
         justifyContent: 'space-between',
         flexDirection: 'row',
         width: '100%',
-        marginTop: '5%'
+        height: 110,
+        paddingBottom: 20,
+        backgroundColor: '#252650'
+
 
     },
     icon: {
@@ -49,6 +53,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontFamily: 'catoonist',
         fontSize: 16,
-        letterSpacing: 5
+        letterSpacing: 5,
     }
 });

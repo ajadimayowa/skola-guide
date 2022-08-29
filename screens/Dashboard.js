@@ -17,12 +17,24 @@ import { DashboardActions } from '../data/DataBox'
 import DirectionButton from '../components/DirectionButton';
 import SideNavigation from '../components/SideNavigation';
 import DashboardActivity from '../components/DashboardActivity';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Hamburger from '../components/Hamburger';
+import SettingButton from '../components/SettingButton';
+import SettingModal from '../components/SettingModal';
 
 function Dashboard({ navigation }) {
 
+
+    useEffect(() => {
+        navigation.setOptions({
+            header: () => <DashboardHeader settingsFunction={toggleSettingNav} action={toggleSideNav} />
+        })
+    }, [navigation, toggleSideNav])
+
+
     const [counter, addCounterUp] = useState(0)
     const [onSideNav, setSideNav] = useState(false)
+    const [settingNav, setSettingNav] = useState(false)
     const { width } = useWindowDimensions()
 
     const activityText = DashboardActions[counter].toString()
@@ -35,6 +47,9 @@ function Dashboard({ navigation }) {
 
     function toggleSideNav() {
         setSideNav(!onSideNav)
+    }
+    function toggleSettingNav() {
+        setSettingNav(!settingNav)
     }
 
     function nextAction() {
@@ -62,7 +77,8 @@ function Dashboard({ navigation }) {
         function goToBookListPage() {
             const tappedDept = departments.item.name_of_department
             const tappedDeptImage = departments.item.icon_name
-            navigation.navigate('Books', { tappedDept, tappedDeptImage })
+            const tappedDeptId = departments.item.id
+            navigation.navigate('Books', { tappedDept, tappedDeptImage, tappedDeptId })
         }
 
         return <DepartmentHolder action={goToBookListPage} deptImage={departments.item.icon_name}
@@ -81,8 +97,9 @@ function Dashboard({ navigation }) {
                     <View style={
                         styles.container
                     }>
+                        <SettingModal state={settingNav} toggleOff={toggleSettingNav} />
                         <SideNavigation toggleSideNav={onSideNav} toggle={toggleSideNav} />
-                        <DashboardHeader action={toggleSideNav} />
+
                         <SearchBar />
 
                         <TitleText>Choose
@@ -127,7 +144,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: '5%',
         paddingVertical: '5%',
-        paddingBottom: 50
     },
     p: {
         color: '#fff',

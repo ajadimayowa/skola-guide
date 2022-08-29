@@ -4,10 +4,10 @@ import Course from "../models/Course"
 export const DashboardActions = ['Find A Tutor', 'Find A Library', 'Join Book Club', 'Take A Quiz']
 
 export const DEPARTMENTS = [
-    new Department(1, "science", 'Science'),
-    new Department(2, 'attach-money', 'Finance'),
-    new Department(3, 'color-lens', 'Art'),
-    new Department(4, 'question-answer', 'Trivia')
+    new Department('cs', "science", 'Science'),
+    new Department('cf', 'attach-money', 'Finance'),
+    new Department('ca', 'color-lens', 'Art'),
+    new Department('ct', 'question-answer', 'Trivia')
 
 ]
 
@@ -44,4 +44,26 @@ export const Trivia_Courses = [
     new Course(3, 'The Ogbomos People', '#E79C3D'),
     new Course(4, 'Lagos To The World', '#E79C3D'),
     new Course(5, 'Letter To Alex', '#E79C3D'),
+]
+
+export const All_Books = [
+    new Course(['cs', 'cf'], 'Mathematics', '#D0A208'),
+    new Course(['cs', 'cf'], 'English', '#D0A208'),
+    new Course(['cs', 'ct'], 'Physics', '#D0A208'),
+    new Course(['cs', 'ct'], 'Chemistry', '#D0A208'),
+    new Course(['cs', 'ct'], 'Biology', '#D0A208'),
+    new Course(['cs', 'cf'], 'Applied Art', '#fdd037'),
+    new Course(['cs', 'cf'], 'Fine Art', '#fdd037'),
+    new Course(['cs', 'ct'], 'English Literature', '#fdd037'),
+    new Course(['cs', 'ca'], 'Textile', '#fdd037'),
+    new Course(['ca', 'ct'], 'Journalism', '#fdd037'),
+    new Course(['cs', 'cf'], 'Business Studies', '#12ADC1'),
+    new Course(['ct', 'cf'], 'Economics', '#12ADC1'),
+    new Course(['ct', 'cf'], 'Commerce', '#12ADC1'),
+    new Course(['ca', 'cf'], 'Accounting', '#12ADC1'),
+    new Course(['cs', 'cf'], 'Political Science', '#12ADC1'),
+    new Course(['ct', 'cf'], 'Administative Study', '#12ADC1'),
+    new Course(['ca', 'cf'], 'Banking', '#12ADC1'),
+    new Course(['cf'], 'Book Keeping', '#12ADC1'),
+
 ]

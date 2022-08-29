@@ -1,16 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import {
-    StyleSheet, View,
+    StyleSheet, View, Text
 } from 'react-native';
 import DirectionButton from './DirectionButton';
 import ThreeDots from './ThreeDots';
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 
-function Nav({ dotAction, arrowAction, externalStyle }) {
+function Nav({ dotAction, arrowAction, externalStyle, pageTitle }) {
+    const navigation = useNavigation()
+
+    function goBack() {
+        navigation.goBack()
+    }
+
     return (
         <View style={[styles.container, externalStyle]}>
-            <DirectionButton externalStyle={styles.directionButton} color={'#E79C3D'} size={35} direction={"keyboard-arrow-left"}
-                action={arrowAction}
-            />
+            <DirectionButton externalStyle={styles.directionButton} color={'#E79C3D'} size={35}
+                direction={"keyboard-arrow-left"}
+                action={goBack} />
+            <Text style={styles.titleText}>{pageTitle}</Text>
             <ThreeDots action={dotAction} />
 
         </View>
@@ -21,12 +30,14 @@ export default Nav;
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
+        alignItems: 'flex-end',
+        paddingHorizontal: 40,
         justifyContent: 'space-between',
         flexDirection: 'row',
         width: '100%',
-        marginBottom: '20%',
-        padding: 10
+        height: 110,
+        paddingBottom: 20,
+        backgroundColor: '#252650'
 
     },
     icon: {
@@ -48,7 +59,8 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontFamily: 'catoonist',
         fontSize: 16,
-        letterSpacing: 5
+        letterSpacing: 5,
+        color: '#E79C3D'
     },
     directionButton: {
         backgroundColor: null
