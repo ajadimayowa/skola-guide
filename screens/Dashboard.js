@@ -22,25 +22,23 @@ import Hamburger from '../components/Hamburger';
 import SettingButton from '../components/SettingButton';
 import SettingModal from '../components/SettingModal';
 
-
 function Dashboard({ navigation }) {
-
-
-    useEffect(() => {
-        navigation.setOptions({
-            header: () => <DashboardHeader settingsFunction={toggleSettingNav} action={toggleSideNav} />
-        })
-    }, [navigation, toggleSideNav])
-
-
     const [counter, addCounterUp] = useState(0)
     const [onSideNav, setSideNav] = useState(false)
     const [settingNav, setSettingNav] = useState(false)
-    const { width } = useWindowDimensions()
+    const { width, height } = useWindowDimensions()
 
     const activityText = DashboardActions[counter].toString()
 
     let deviceWidth = width
+    let deviceHeight = height
+
+    useEffect(() => {
+        navigation.setOptions({
+            header: () => <DashboardHeader
+                exStyle={{ height: deviceHeight > 695 ? 100 : 40 }} settingsFunction={toggleSettingNav} action={toggleSideNav} />
+        })
+    }, [navigation, toggleSideNav])
 
     if (deviceWidth > 450) {
         return <ScrollView style={landscapeStyle.container}><DashboardL /></ScrollView>
@@ -74,18 +72,17 @@ function Dashboard({ navigation }) {
         console.log('switching to: ', pressedActivity)
     }
 
-    function handleDepartmentRender(departments) {
-        function goToBookListPage() {
-            const tappedDept = departments.item.name_of_department
-            const tappedDeptImage = departments.item.icon_name
-            const tappedDeptId = departments.item.id
-            navigation.navigate('Books', { tappedDept, tappedDeptImage, tappedDeptId })
-        }
-
-        return <DepartmentHolder action={goToBookListPage} deptImage={departments.item.icon_name}
-            deptTitle={departments.item.name_of_department} />
-
+    function goToBookListPage(tappedDeptId) {
+        const tappeddeptId = tappedDeptId
+        navigation.navigate('Books', { tappeddeptId })
+        console.log(tappedDeptId)
     }
+
+    const science = DEPARTMENTS[0]
+    const finance = DEPARTMENTS[1]
+    const art = DEPARTMENTS[2]
+    const trivia = DEPARTMENTS[3]
+
     return (
 
 
@@ -94,35 +91,50 @@ function Dashboard({ navigation }) {
                 source={require('../assets/images/dashboard-bg-image.png')}>
 
                 <SafeAreaView style={styles.screen}>
-                    <ScrollView style={
-                        styles.screen
-                    } contentContainerStyle={{ alignItems: 'center', paddingHorizontal: 30 }}>
+                    <ScrollView bounces={false} style={styles.screen}>
 
+                        <View style={
+                            styles.container
+                        }>
+                            <SettingModal state={settingNav} toggleOff={toggleSettingNav} />
+                            <SideNavigation toggleSideNav={onSideNav} toggle={toggleSideNav} />
 
-                        <SettingModal state={settingNav} toggleOff={toggleSettingNav} />
-                        <SideNavigation toggleSideNav={onSideNav} toggle={toggleSideNav} />
+                            <SearchBar />
 
-                        <SearchBar />
+                            <TitleText>Choose
+                                Department.
+                            </TitleText>
+                            <ParagraphTexts />
 
-                        <TitleText>Choose
-                            Department.
-                        </TitleText>
-                        <ParagraphTexts />
-                        <View style={{ height: '40%', width: '90%', marginTop: '5%', alignItems: 'center' }}>
-                            <FlatList numColumns={2} bounces={false} data={DEPARTMENTS}
-                                keyExtractor={(depatments) => depatments.id}
-                                renderItem={handleDepartmentRender}
-                            />
+                            {/* departments section */}
+                            <ScrollView bounces={false} contentContainerStyle={styles.DeptSectionInnerStyle}
+                                style={styles.DeptSection}>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <DepartmentHolder action={goToBookListPage.bind(this, science.id)} deptImage={science.icon_name}
+                                        deptTitle={science.name_of_department} />
+
+                                    <DepartmentHolder action={goToBookListPage.bind(this, finance.id)} deptImage={finance.icon_name}
+                                        deptTitle={finance.name_of_department} />
+                                </View>
+
+                                <View style={{ flexDirection: 'row' }}>
+                                    <DepartmentHolder action={goToBookListPage.bind(this, art.id)} deptImage={art.icon_name}
+                                        deptTitle={art.name_of_department} />
+
+                                    <DepartmentHolder action={goToBookListPage.bind(this, trivia.id)} deptImage={trivia.icon_name}
+                                        deptTitle={trivia.name_of_department} />
+                                </View>
+                            </ScrollView>
+                            <View style={styles.serviceArea}><DirectionButton action={prevAction} direction={"keyboard-arrow-left"}
+                                size={24} color={'#fff'} /><DashboardActivity
+                                    action={goToSelectedActivity.bind(this, activityText)}>
+                                    {DashboardActions[counter]}</DashboardActivity>
+                                <DirectionButton
+                                    direction={"keyboard-arrow-right"}
+                                    size={24} color={'#fff'} action={nextAction} />
+                            </View>
+
                         </View>
-                        <View style={styles.serviceArea}><DirectionButton action={prevAction} direction={"keyboard-arrow-left"}
-                            size={24} color={'#fff'} /><DashboardActivity
-                                action={goToSelectedActivity.bind(this, activityText)}>
-                                {DashboardActions[counter]}</DashboardActivity>
-                            <DirectionButton
-                                direction={"keyboard-arrow-right"}
-                                size={24} color={'#fff'} action={nextAction} />
-                        </View>
-
                     </ScrollView>
                 </SafeAreaView>
 
@@ -146,6 +158,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: '5%',
         paddingVertical: '5%',
+    },
+    DeptSection: {
+        width: '100%',
+        maxHeight: '55%',
+        paddingVertical: 10,
+        marginBottom: 30
+    },
+    DeptSectionInnerStyle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+
+
     },
     p: {
         color: '#fff',

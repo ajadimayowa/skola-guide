@@ -5,9 +5,9 @@ import {
 import Hamburger from './Hamburger';
 import { Ionicons } from "@expo/vector-icons"
 
-function DashboardHeader({ action, settingsFunction }) {
+function DashboardHeader({ action, settingsFunction, exStyle }) {
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, exStyle]}>
             <Hamburger action={action} />
             <Text style={styles.titleText}>Skolar</Text>
             <Pressable onPress={settingsFunction} style={({ pressed }) => pressed ?
@@ -28,8 +28,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row',
         width: '100%',
-        height: 50,
-        paddingBottom: 20,
+        height: 100,
         backgroundColor: '#252650'
 
 
