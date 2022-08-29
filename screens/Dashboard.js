@@ -22,6 +22,7 @@ import Hamburger from '../components/Hamburger';
 import SettingButton from '../components/SettingButton';
 import SettingModal from '../components/SettingModal';
 
+
 function Dashboard({ navigation }) {
 
 
@@ -93,10 +94,11 @@ function Dashboard({ navigation }) {
                 source={require('../assets/images/dashboard-bg-image.png')}>
 
                 <SafeAreaView style={styles.screen}>
+                    <ScrollView style={
+                        styles.screen
+                    } contentContainerStyle={{ alignItems: 'center', paddingHorizontal: 30 }}>
 
-                    <View style={
-                        styles.container
-                    }>
+
                         <SettingModal state={settingNav} toggleOff={toggleSettingNav} />
                         <SideNavigation toggleSideNav={onSideNav} toggle={toggleSideNav} />
 
@@ -120,7 +122,8 @@ function Dashboard({ navigation }) {
                                 direction={"keyboard-arrow-right"}
                                 size={24} color={'#fff'} action={nextAction} />
                         </View>
-                    </View>
+
+                    </ScrollView>
                 </SafeAreaView>
 
 
@@ -136,7 +139,6 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         width: '100%',
-        alignItems: 'center',
     },
     container: {
         flex: 1,

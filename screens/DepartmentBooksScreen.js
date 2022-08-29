@@ -10,6 +10,7 @@ import TitleText from '../components/TitleText';
 import Nav from '../components/Nav';
 import Hamburger from '../components/Hamburger';
 import DepartmentBookHolder from '../components/DepartmentBookHolder';
+import { ScrollView } from 'react-native';
 
 import { All_Books } from '../data/DataBox'
 import { DEPARTMENTS } from '../data/DataBox'
@@ -67,21 +68,23 @@ function DepartmentBooksScreen({ navigation, route }) {
             <ImageBackground style={styles.screenDefault} resizeMode="stretch"
                 source={require('../assets/images/dashboard-bg-image.png')}>
                 <SafeAreaView style={styles.screenDefault}>
-                    <View style={styles.container}>
+                    <ScrollView style={styles.screenDefault}>
+                        <View style={styles.container}>
 
-                        <MaterialIcons name={tappedDeptIconImage} size={50} color="#fff" />
-                        <TitleText>Available
-                            {' '}{tappedDeptTitle} Books.</TitleText>
-                        <FlatList contentContainerStyle={styles.listContainerStyle}
-                            data={filteredBooks} renderItem={(books) =>
-                                <DepartmentBookHolder serial={books.index + 1} holderColor={books.item.color_code} id={books.item.course_id}
-                                    bookTitle={books.item.course_name} />
-                            } style={{ width: '100%' }} />
-                        <View style={{ width: '100%', alignItems: 'flex-end', paddingHorizontal: '10%', marginTop: 15 }}>
-                            <DirectionButton color={'#fff'} size={24}
-                                direction={'add'} externalStyle={{ backgroundColor: '#E79C3D' }} />
+                            <MaterialIcons name={tappedDeptIconImage} size={50} color="#fff" />
+                            <TitleText>Available
+                                {' '}{tappedDeptTitle} Books.</TitleText>
+                            <FlatList contentContainerStyle={styles.listContainerStyle}
+                                data={filteredBooks} renderItem={(books) =>
+                                    <DepartmentBookHolder serial={books.index + 1} holderColor={books.item.color_code} id={books.item.course_id}
+                                        bookTitle={books.item.course_name} />
+                                } style={{ width: '100%' }} />
+                            <View style={{ width: '100%', alignItems: 'flex-end', paddingHorizontal: '10%', marginTop: 15 }}>
+                                <DirectionButton color={'#fff'} size={24}
+                                    direction={'add'} externalStyle={{ backgroundColor: '#E79C3D' }} />
+                            </View>
                         </View>
-                    </View>
+                    </ScrollView>
                 </SafeAreaView>
             </ImageBackground>
         </LinearGradient>
@@ -94,8 +97,6 @@ export default DepartmentBooksScreen;
 const styles = StyleSheet.create({
     screenDefault: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
         width: '100%',
     },
     container: {
