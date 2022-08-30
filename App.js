@@ -32,8 +32,8 @@ function TabScreens() {
   return (
     <tabs.Navigator screenOptions={{ headerShown: false }}>
       <tabs.Screen options={{ tabBarIcon: () => { return <Ionicons name="home" size={24} /> } }} name='HomePage' component={DrawerScreens} />
-      <tabs.Screen name='Tutors' component={TutorsScreen} />
-      <tabs.Screen name='Favourites' component={FavouriteBooks} />
+      <tabs.Screen options={{ tabBarIcon: () => { return <Ionicons name="book" size={24} /> } }} name='Tutors' component={TutorsScreen} />
+      <tabs.Screen options={{ tabBarIcon: () => { return <Ionicons name="heart" size={24} /> } }} name='Favourites' component={FavouriteBooks} />
     </tabs.Navigator>
   )
 }
