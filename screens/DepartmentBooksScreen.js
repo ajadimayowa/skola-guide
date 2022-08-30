@@ -18,7 +18,7 @@ import { useState, useLayoutEffect, useEffect } from 'react';
 import DirectionButton from '../components/DirectionButton';
 
 function DepartmentBooksScreen({ navigation, route }) {
-    const tappedDepartmentId = route.params.tappeddeptId
+    const tappedDepartmentId = route.params.id
     console.log(tappedDepartmentId)
 
     const tappedDeptIconImage = DEPARTMENTS.find((depts) => { return depts.id === tappedDepartmentId }).icon_name
@@ -29,12 +29,12 @@ function DepartmentBooksScreen({ navigation, route }) {
         navigation.goBack()
     }
 
-    useEffect(() => {
-        navigation.setOptions({
-            header: () => <Nav />,
-            headerBackVisible: false
-        })
-    }, [])
+    // useEffect(() => {
+    //     navigation.setOptions({
+    //         header: () => <Nav />,
+    //         headerBackVisible: false
+    //     })
+    // }, [])
 
 
     return (

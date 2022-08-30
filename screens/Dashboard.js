@@ -45,7 +45,7 @@ function Dashboard({ navigation }) {
     }
 
     function toggleSideNav() {
-        setSideNav(!onSideNav)
+        navigation.toggleDrawer()
     }
     function toggleSettingNav() {
         setSettingNav(!settingNav)
@@ -83,6 +83,8 @@ function Dashboard({ navigation }) {
     const art = DEPARTMENTS[2]
     const trivia = DEPARTMENTS[3]
 
+
+
     return (
 
 
@@ -110,18 +112,18 @@ function Dashboard({ navigation }) {
                             <ScrollView bounces={false} contentContainerStyle={styles.DeptSectionInnerStyle}
                                 style={styles.DeptSection}>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <DepartmentHolder action={goToBookListPage.bind(this, science.id)} deptImage={science.icon_name}
+                                    <DepartmentHolder tappedId={science.id} deptImage={science.icon_name}
                                         deptTitle={science.name_of_department} />
 
-                                    <DepartmentHolder action={goToBookListPage.bind(this, finance.id)} deptImage={finance.icon_name}
+                                    <DepartmentHolder tappedId={science.id} deptImage={finance.icon_name}
                                         deptTitle={finance.name_of_department} />
                                 </View>
 
                                 <View style={{ flexDirection: 'row' }}>
-                                    <DepartmentHolder action={goToBookListPage.bind(this, art.id)} deptImage={art.icon_name}
+                                    <DepartmentHolder tappedId={science.id} deptImage={art.icon_name}
                                         deptTitle={art.name_of_department} />
 
-                                    <DepartmentHolder action={goToBookListPage.bind(this, trivia.id)} deptImage={trivia.icon_name}
+                                    <DepartmentHolder tappedId={science.id} deptImage={trivia.icon_name}
                                         deptTitle={trivia.name_of_department} />
                                 </View>
                             </ScrollView>

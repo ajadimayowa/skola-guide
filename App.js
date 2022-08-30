@@ -7,7 +7,6 @@ import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import {
   StyleSheet, Text, View, SafeAreaView,
   ImageBackground
@@ -16,10 +15,38 @@ import { LinearGradient } from 'expo-linear-gradient';
 import LoginScreen from './screens/LoginScreen'
 import SignupScreen from './screens/SignUpScreen';
 import Dashboard from './screens/Dashboard';
+import TutorsScreen from './screens/TutorsScreen.js';
+import FavouriteBooks from './screens/FavouriteBooks.js';
 import DepartmentBooksScreen from './screens/DepartmentBooksScreen';
-import DirectionButton from './components/DirectionButton'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { Ionicons } from "@expo/vector-icons"
 
-let screenStacks = createNativeStackNavigator()
+let stack = createNativeStackNavigator()
+let drawer = createDrawerNavigator()
+let tabs = createBottomTabNavigator()
+
+
+function TabScreens() {
+  return (
+    <tabs.Navigator screenOptions={{ headerShown: false }}>
+      <tabs.Screen options={{ tabBarIcon: () => { return <Ionicons name="home" size={24} /> } }} name='HomePage' component={DrawerScreens} />
+      <tabs.Screen name='Tutors' component={TutorsScreen} />
+      <tabs.Screen name='Favourites' component={FavouriteBooks} />
+    </tabs.Navigator>
+  )
+}
+
+function DrawerScreens() {
+  return (
+    <drawer.Navigator>
+      <drawer.Screen name='Home' component={Dashboard} />
+      <drawer.Screen name='Favorite Books' component={LoginScreen} />
+      <drawer.Screen name='Good Reads' component={SignupScreen} />
+    </drawer.Navigator>
+  )
+}
 
 export default function App() {
 
@@ -36,21 +63,14 @@ export default function App() {
     return <AppLoading />
   }
 
-  let screen = <Dashboard />
   return (
     <>
       <StatusBar style="dark" />
       <NavigationContainer>
-        <screenStacks.Navigator screenOptions={{
-          title: '',
-          headerStyle: { backgroundColor: '#252650' },
-          headerTintColor: 'white',
-        }
-        }>
-          <screenStacks.Screen name='Dashboard' component={Dashboard} />
-          <screenStacks.Screen name='Books' component={DepartmentBooksScreen} />
-          <screenStacks.Screen name='LoginScreen' component={LoginScreen} />
-        </screenStacks.Navigator>
+        <stack.Navigator>
+          <stack.Screen options={{ headerShown: false }} name='Dashboard' component={TabScreens} />
+          <stack.Screen name='BookList' component={DepartmentBooksScreen} />
+        </stack.Navigator>
       </NavigationContainer>
     </>
   );

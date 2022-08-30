@@ -5,11 +5,20 @@ import {
 import { Fontisto } from "@expo/vector-icons"
 import { Ionicons } from "@expo/vector-icons"
 import { MaterialIcons } from "@expo/vector-icons"
+import { useNavigation } from '@react-navigation/native';
 
-function DepartmentHolder({ action, deptImage, deptTitle }) {
+function DepartmentHolder({ action, deptImage, deptTitle, tappedId }) {
+    const id = tappedId
+    const navigation = useNavigation()
+
+    function filterBooks() {
+        console.log(id)
+        navigation.navigate('BookList', { id })
+    }
+
 
     return (
-        <Pressable onPress={action} style={({ pressed }) => pressed ? [styles.pressed, styles.container] : [styles.container]}>
+        <Pressable onPress={filterBooks} style={({ pressed }) => pressed ? [styles.pressed, styles.container] : [styles.container]}>
             <View style={styles.container} >
                 <MaterialIcons name={deptImage} size={50} color="#fff" />
                 <Text style={styles.titleText}>{deptTitle}</Text>
