@@ -38,18 +38,19 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         padding: 15,
         margin: 5,
-        width: 250,
-        height: 45,
+        minWidth: 250,
+        minheight: 45,
         fontFamily: 'avenir',
         fontSize: 12,
-        borderRadius: 5
+        borderRadius: 5,
+
     },
     holder: {
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        marginTop: 50
+        marginBottom: '15%'
     },
     icon: {
         color: '#E79C3D'

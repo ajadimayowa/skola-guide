@@ -6,50 +6,30 @@
 import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
-import { NavigationContainer } from '@react-navigation/native';
-import {
-  StyleSheet, Text, View, SafeAreaView,
-  ImageBackground
-} from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import LoginScreen from './screens/LoginScreen'
-import SignupScreen from './screens/SignUpScreen';
-import Dashboard from './screens/Dashboard';
-import TutorsScreen from './screens/TutorsScreen.js';
-import FavouriteBooks from './screens/FavouriteBooks.js';
-import DepartmentBooksScreen from './screens/DepartmentBooksScreen';
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Ionicons } from "@expo/vector-icons"
 
+//handle screen Navigators
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer'
+
+//entry screen
+import TabScreens from './screens/tabs/TabScreens';
+import DrawerScreens from './screens/drawers/DrawerScreens';
+import LoginScreen from './screens/main/LoginScreen';
+import SignUpScreen from './screens/main/SignUpScreen';
+
+//create screen types from navigator
 let stack = createNativeStackNavigator()
 let drawer = createDrawerNavigator()
-let tabs = createBottomTabNavigator()
 
+//import global data from redux store
+import { Provider } from 'react-redux';
+import { store } from './store/redux/store';
 
-function TabScreens() {
-  return (
-    <tabs.Navigator screenOptions={{ headerShown: false }}>
-      <tabs.Screen options={{ tabBarIcon: () => { return <Ionicons name="home" size={24} /> } }} name='HomePage' component={DrawerScreens} />
-      <tabs.Screen options={{ tabBarIcon: () => { return <Ionicons name="book" size={24} /> } }} name='Tutors' component={TutorsScreen} />
-      <tabs.Screen options={{ tabBarIcon: () => { return <Ionicons name="heart" size={24} /> } }} name='Favourites' component={FavouriteBooks} />
-    </tabs.Navigator>
-  )
-}
-
-function DrawerScreens() {
-  return (
-    <drawer.Navigator>
-      <drawer.Screen name='Home' component={Dashboard} />
-      <drawer.Screen name='Favorite Books' component={LoginScreen} />
-      <drawer.Screen name='Good Reads' component={SignupScreen} />
-    </drawer.Navigator>
-  )
-}
 
 export default function App() {
 
+  //load fonts from expo-fonts
   const [fontLoaded] = useFonts({
     'avenir': require('./assets/fonts/AvenirLTStd-Black.otf'),
     'catoonist': require('./assets/fonts/cartoonist_kooky.ttf'),
@@ -65,22 +45,20 @@ export default function App() {
 
   return (
     <>
-      <StatusBar style="dark" />
-      <NavigationContainer>
-        <stack.Navigator>
-          <stack.Screen options={{ headerShown: false }} name='Dashboard' component={TabScreens} />
-          <stack.Screen name='BookList' component={DepartmentBooksScreen} />
-        </stack.Navigator>
-      </NavigationContainer>
+      <StatusBar style="light" />
+      <Provider store={store}>
+        <NavigationContainer >
+          <stack.Navigator screenOptions={{ headerSHown: false }}>
+            <stack.Screen name="Dashboard" component={DrawerScreens} />
+            <stack.Screen name="LoginScreen" component={LoginScreen} />
+            <stack.Screen name="SignUpScreen" component={SignUpScreen} />
+            {/* <stack.Screen name="ForgotPasswordScreen" />
+          <stack.Screen name="ResetPasswordScreen" />
+          <stack.Screen name="OtpScreen" /> */}
+          </stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-  },
-});

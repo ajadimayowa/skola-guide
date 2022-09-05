@@ -9,7 +9,7 @@ function Hamburger({ action }) {
     return (
         <Pressable onPress={action} style={({ pressed }) => pressed ? [styles.pressed, styles.container] : [styles.container]}>
             <View style={styles.container} >
-                <Image source={require('../assets/icons/nav-icon.png')} />
+
             </View>
         </Pressable>
     );

@@ -1,25 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
 import {
     StyleSheet, Text, View, SafeAreaView,
     ImageBackground
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-function SignUpScreen() {
+function BooksScreen({ navigation }) {
     return (
         <LinearGradient colors={['#252650', '#01010B']} style={styles.container}>
-            <ImageBackground style={styles.container} resizeMode="stretch"
-                source={require('../assets/images/login-bg-image.png')}>
+            <ImageBackground style={styles.screen} resizeMode="stretch"
+                source={require('../../assets/images/dashboard-bg-image.png')}>
+
                 <SafeAreaView style={styles.container}>
 
-                    <Text style={styles.p}>Sign up Screen</Text>
+                    <Text style={styles.p}>Book Detail Screen</Text>
                 </SafeAreaView>
             </ImageBackground>
         </LinearGradient>
     );
 }
 
-export default SignUpScreen;
+export default BooksScreen;
 
 const styles = StyleSheet.create({
     container: {

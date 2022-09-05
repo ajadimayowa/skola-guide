@@ -1,15 +1,12 @@
-import Department from "../models/Department"
-import Course from "../models/Course"
+import Department from "./models/Department"
+import Course from "./models/Subject"
+import Book from "./models/Book"
 
 export const DashboardActions = ['Find A Tutor', 'Find A Library', 'Join Book Club', 'Take A Quiz']
 
-export const DEPARTMENTS = [
-    new Department('cs', "science", 'Science'),
-    new Department('cf', 'attach-money', 'Finance'),
-    new Department('ca', 'color-lens', 'Art'),
-    new Department('ct', 'question-answer', 'Trivia')
 
-]
+
+
 
 export const Science_Courses = [
     new Course(1, 'Mathematics', '#D0A208'),
@@ -47,23 +44,23 @@ export const Trivia_Courses = [
 ]
 
 export const All_Books = [
-    new Course(['cs', 'cf'], 'Mathematics', '#D0A208'),
-    new Course(['cs', 'cf'], 'English', '#D0A208'),
-    new Course(['cs', 'ct'], 'Physics', '#D0A208'),
-    new Course(['cs', 'ct'], 'Chemistry', '#D0A208'),
-    new Course(['cs', 'ct'], 'Biology', '#D0A208'),
-    new Course(['cs', 'cf'], 'Applied Art', '#fdd037'),
-    new Course(['cs', 'cf'], 'Fine Art', '#fdd037'),
-    new Course(['cs', 'ct'], 'English Literature', '#fdd037'),
-    new Course(['cs', 'ca'], 'Textile', '#fdd037'),
-    new Course(['ca', 'ct'], 'Journalism', '#fdd037'),
-    new Course(['cs', 'cf'], 'Business Studies', '#12ADC1'),
-    new Course(['ct', 'cf'], 'Economics', '#12ADC1'),
-    new Course(['ct', 'cf'], 'Commerce', '#12ADC1'),
-    new Course(['ca', 'cf'], 'Accounting', '#12ADC1'),
-    new Course(['cs', 'cf'], 'Political Science', '#12ADC1'),
-    new Course(['ct', 'cf'], 'Administative Study', '#12ADC1'),
-    new Course(['ca', 'cf'], 'Banking', '#12ADC1'),
-    new Course(['cf'], 'Book Keeping', '#12ADC1'),
+    new Course(['cs', 'cf'], 'ma', 'Mathematics', '#D0A208'),
+    new Course(['cs', 'cf', 'ca', 'ct'], 'en', 'English', '#D0A208'),
+    new Course(['cs'], 'ph', 'Physics', '#D0A208'),
+    new Course(['cs'], 'ch', 'Chemistry', '#D0A208'),
+    new Course(['cs'], 'bi', 'Biology', '#D0A208'),
+    new Course(['ca'], 'ap', 'Applied Art', '#fdd037'),
+    new Course(['ca'], 'fi', 'Fine Art', '#fdd037'),
+    new Course(['ca', 'cs'], 'el', 'English Literature', '#fdd037'),
+    new Course(['ca'], 'te', 'Textile', '#fdd037'),
+    new Course(['ca'], 'jo', 'Journalism', '#fdd037'),
+    new Course(['cf'], 'bu', 'Business Studies', '#12ADC1'),
+    new Course(['cf'], 'ec', 'Economics', '#12ADC1'),
+    new Course(['cf'], 'co', 'Commerce', '#12ADC1'),
+    new Course(['cf'], 'ac', 'Accounting', '#12ADC1'),
+    new Course(['ca', 'cf'], 'po', 'Political Science', '#12ADC1'),
+    new Course(['cf'], 'ad', 'Administative Study', '#12ADC1'),
+    new Course(['cf'], 'ba', 'Banking', '#12ADC1'),
+    new Course(['cf'], 'bk', 'Book Keeping', '#12ADC1'),
 
 ]

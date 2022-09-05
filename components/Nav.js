@@ -16,7 +16,7 @@ function Nav({ dotAction, arrowAction, externalStyle, pageTitle }) {
 
     return (
         <View style={[styles.container, externalStyle]}>
-            <DirectionButton externalStyle={styles.directionButton} color={'#E79C3D'} size={35}
+            <DirectionButton action={goBack} externalStyle={styles.directionButton} color={'#E79C3D'} size={35}
                 direction={"keyboard-arrow-left"}
             />
             <Text style={styles.titleText}>{pageTitle}</Text>
