@@ -12,7 +12,7 @@ function DepartmentCard({ icon, deptTitle, deptId, iconColor, iconSize }) {
     const navigation = useNavigation()
 
     function filterBooks() {
-        navigation.navigate('BooksScreen', { id })
+        navigation.navigate('SubjectsScreen', { id })
     }
 
 

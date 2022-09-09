@@ -21,9 +21,11 @@ function StackedScreens({ navigation }) {
         < mainstack.Navigator>
 
             <mainstack.Screen name='Dashboard' component={Dashboard} />
-            <mainstack.Screen name='BookDetailScreen' component={BookDetailScreen} />
             <mainstack.Screen name='SubjectsScreen' component={SubjectsScreen} />
             <mainstack.Screen name='BooksScreen' component={BooksScreen} />
+            <mainstack.Screen name='BookDetailScreen' component={BookDetailScreen} />
+
+
 
         </mainstack.Navigator >)
 }

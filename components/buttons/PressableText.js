@@ -14,7 +14,7 @@ export default PressableText;
 const styles = StyleSheet.create({
     pressed: { opacity: 0.5 },
     text: {
-        fontFamily: 'montserat-bold'
+        fontFamily: 'montserrat-bold'
     }
 
 

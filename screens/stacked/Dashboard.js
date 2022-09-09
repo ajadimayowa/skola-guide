@@ -3,11 +3,9 @@ import {
     StyleSheet, Text, View, SafeAreaView, ImageBackground, useWindowDimensions,
     ScrollView, KeyboardAvoidingView
 } from 'react-native';
-import { addBookToFavorite, removeBookFromFavorite } from '../../store/redux/favoriteBooksSlice'
-import { useDispatch } from 'react-redux'
 
 import { useLayoutEffect, useState } from 'react';
-import { Ionicons } from "@expo/vector-icons"
+import BooksHorizontalList from '../../components/lists/BooksHorizontalList';
 import { LinearGradient } from 'expo-linear-gradient';
 import SettingModal from '../../components/modals/SettingModal'
 import TitleText from '../../components/texts/TitleText';
@@ -17,16 +15,11 @@ import MainHeader from '../../components/main/MainHeader';
 import SearchBar from '../../components/inputs/SearchBar';
 import Card from '../../components/cards/Card';
 import DepartmentCard from '../../components/cards/DepartmentCard';
+import { Books } from '../../data/Books';
 
 //importing the data for use from redux
-import { useSelector } from 'react-redux'
 
 function Dashboard({ navigation }) {
-    const dispatch = useDispatch()
-    const onlineUsers = useSelector((states) => { return states.favoriteBooks.favoriteBooksid })
-    const buyersLists = useSelector((states) => states.BookData.books)
-    const [counter, addCounterUp] = useState(0)
-    const [onSideNav, setSideNav] = useState(false)
 
     const [settingNav, setSettingNav] = useState(false)
 
@@ -63,38 +56,6 @@ function Dashboard({ navigation }) {
         setSettingNav(!settingNav)
     }
 
-    function nextAction() {
-        if (counter === 0 || counter < DashboardActions.length - 1) {
-            addCounterUp(counter + 1)
-
-        } else {
-            addCounterUp(0)
-        }
-    }
-
-    function prevAction() {
-        if (counter > 0 || counter === DashboardActions.length - 1) {
-            addCounterUp(counter - 1)
-        } else {
-            addCounterUp(2)
-        }
-    }
-
-    function goToSelectedActivity(pressedActivity) {
-        console.log('switching to: ', pressedActivity)
-    }
-
-    function goToBookListPage(tappedDeptId) {
-        const tappeddeptId = tappedDeptId
-        navigation.navigate('Books', { tappeddeptId })
-        console.log(tappedDeptId)
-    }
-
-    // const science = DEPARTMENTS[0]
-    // const finance = DEPARTMENTS[1]
-    // const art = DEPARTMENTS[2]
-    // const trivia = DEPARTMENTS[3]
-
 
 
     return (
@@ -118,52 +79,14 @@ function Dashboard({ navigation }) {
                                 </View>
                                 <SettingModal state={settingNav} toggleOff={toggleSettingNav} />
 
-                                <Card />
+                                <TitleText>Popurla Books</TitleText>
+                                <BooksHorizontalList data={Books} />
+                                <TitleText>Available Tutors</TitleText>
+                                <BooksHorizontalList data={Books} />
                             </View>
 
 
-                            {/* <View style={
-                            styles.container
-                        }>
-                            
-                            <SideNavigation toggleSideNav={onSideNav} toggle={toggleSideNav} />
 
-                            <SearchBar /> */}
-
-                            {/* <TitleText exStyle={{ fontSize: 40, marginTop: 20 }} >Choose
-                                Department.
-                            </TitleText>
-                            <ParagraphTexts /> */}
-
-                            {/* departments section */}
-                            {/* <ScrollView bounces={false} contentContainerStyle={styles.DeptSectionInnerStyle}
-                                style={styles.DeptSection}>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <DepartmentHolder tappedId={science.id} deptImage={science.icon_name}
-                                        deptTitle={science.name_of_department} />
-
-                                    <DepartmentHolder tappedId={finance.id} deptImage={finance.icon_name}
-                                        deptTitle={finance.name_of_department} />
-                                </View>
-
-                                <View style={{ flexDirection: 'row' }}>
-                                    <DepartmentHolder tappedId={art.id} deptImage={art.icon_name}
-                                        deptTitle={art.name_of_department} />
-
-                                    <DepartmentHolder tappedId={trivia.id} deptImage={trivia.icon_name}
-                                        deptTitle={trivia.name_of_department} />
-                                </View>
-                            </ScrollView> */}
-                            {/* <View style={styles.serviceArea}><DirectionButton action={prevAction} direction={"keyboard-arrow-left"}
-                                size={24} color={'#fff'} /><DashboardActivity
-                                    action={goToSelectedActivity.bind(this, activityText)}>
-                                    {DashboardActions[counter]}</DashboardActivity>
-                                <DirectionButton
-                                    direction={"keyboard-arrow-right"}
-                                    size={24} color={'#fff'} action={nextAction} />
-                            </View> */}
-
-                            {/* </View> */}
                         </ScrollView>
                     </KeyboardAvoidingView>
                 </SafeAreaView>
@@ -184,7 +107,7 @@ const styles = StyleSheet.create({
         flex: 1,
         minWidth: '100%',
         alignItems: 'center',
-        paddingHorizontal: '10%',
+        paddingHorizontal: '3%',
         paddingVertical: '10%',
     },
     DeptSection: {

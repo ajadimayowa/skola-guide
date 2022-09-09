@@ -1,12 +1,12 @@
-class Course {
-    constructor(course_id, course_own_id, course_name, color_code) {
-        this.course_id = course_id,
-            this.course_own_id = course_own_id,
-            this.course_name = course_name,
+class Subject {
+    constructor(subject_id, subject_own_id, subject_name, color_code) {
+        this.subject_id = subject_id,
+            this.subject_own_id = subject_own_id,
+            this.subject_name = subject_name,
             this.color_code = color_code
     }
 }
 
-export default Course;
+export default Subject;
 
 

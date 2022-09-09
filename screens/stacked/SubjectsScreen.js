@@ -1,117 +1,130 @@
-import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import {
     StyleSheet, Text, View, SafeAreaView,
-    ImageBackground,
-    FlatList
+    ImageBackground, KeyboardAvoidingView, ScrollView
 } from 'react-native';
+import { DEPARTMENTS } from '../../data/Departments';
+import { Subjects } from '../../data/Subjects';
+import { Books } from '../../data/Books'
 import { LinearGradient } from 'expo-linear-gradient';
-import { MaterialIcons } from '@expo/vector-icons'
-// import TitleText from '../../components/TitleText';
-import Nav from '../../components/Nav';
-import Hamburger from '../../components/Hamburger';
-import DepartmentBookHolder from '../../components/DepartmentBookHolder';
-
-import { All_Books } from '../../data/DataBox'
-import { DEPARTMENTS } from '../../data/DataBox'
-
-import { useState, useLayoutEffect, useEffect, useContext } from 'react';
-import DirectionButton from '../../components/DirectionButton';
+import { useLayoutEffect } from 'react';
+import SecondaryHeader from '../../components/main/SecondaryHeader';
+import SettingModal from '../../components/modals/SettingModal';
+import { MaterialIcons } from '@expo/vector-icons';
+import TitleText from '../../components/texts/TitleText';
+import SubjectCapsule from '../../components/capsules/SubjectCapsule';
+import BookDescriptionCard from '../../components/cards/BookDescriptionCard';
 
 
+function SubjectsScreen({ navigation, route }) {
+    //set values for screen parameters
 
-function DepartmentBooksScreen({ navigation, route }) {
+    //set values for screen Dept parameters
+    const tappedDeptId = route.params.id;
 
-    const tappedDepartmentId = route.params.id
+    const [screenMenuOff, setScreenMenuOn] = useState(false);
+    const departmentAttributes = DEPARTMENTS.find((depatments) => depatments.id === tappedDeptId);
+    const tappedDeptTitle = departmentAttributes.name_of_department;
+    const tappedDeptIcon = departmentAttributes.icon_name;
+
+    //set values for screen Subject parameters
 
 
-    const tappedDeptIconImage = DEPARTMENTS.find((depts) => { return depts.id === tappedDepartmentId }).icon_name
-    const tappedDeptTitle = DEPARTMENTS.find((depts) => { return depts.id === tappedDepartmentId }).name_of_department
-    const filteredBooks = All_Books.filter((books) => { return books.course_id.indexOf(tappedDepartmentId) >= 0 })
-    const bookId = filteredBooks.find((book) => book.course_id.indexOf(tappedDepartmentId) >= 0).course_own_id
+    const headerTitle = tappedDeptTitle + ' Subjects';
 
-    const isFavorite = favoriteListId.includes(bookId)
-    const iconName = isFavorite ? 'heart' : 'heart-outline'
+    const filteredSubjectsBasedOnTappedDept = Subjects.filter((subjects) => {
+        return subjects.subject_id.includes(tappedDeptId)
+    })
 
-    function goBack() {
-        console.log('ok')
-    }
-
-    function handleFavoriteList() {
-        if (isFavorite) {
-            favoriteListManager.remFavBook(bookId)
-        } else {
-            favoriteListManager.addFavBook(bookId)
-        }
+    function toggleScreenMenu() {
+        setScreenMenuOn(!screenMenuOff)
     }
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            header: () => <Nav arrowAction={goBack} />
+            header: () => { return <SecondaryHeader headerTitle={headerTitle} toggleMenu={toggleScreenMenu} exStyle={styles.header} /> },
+            headerShown: true,
+            tabBarShown: false
+
         })
-    }, [navigation])
+    })
+
+    const subjectList = filteredSubjectsBasedOnTappedDept.map((subject) => {
+        // console.log(subject.subject_own_id)
+        return <SubjectCapsule key={subject.subject_own_id} subjectId={subject.subject_own_id} subjectCatId={subject.subject_id} >
+            {subject.subject_name}</SubjectCapsule>
+    })
 
 
-    // return (
-    //     <LinearGradient colors={['#252650', '#01010B']} style={styles.screenDefault}>
-    //         <ImageBackground style={styles.screen} resizeMode="stretch"
-    //             source={require('../../assets/images/dashboard-bg-image.png')}>
-    //             <SafeAreaView style={styles.screenDefault}>
-    //                 <View style={styles.container}>
-    //                     <View style={{ width: '100%' }}>
-    //                         <MaterialIcons name={tappedDeptIconImage} size={50} color="#fff" />
-    //                         <TitleText>Available</TitleText>
-    //                         <TitleText>
-    //                             {tappedDeptTitle} Books.</TitleText>
-    //                     </View>
-    //                     <View style={{ maxHeight: 400, width: '100%', marginTop: 10, alignItems: 'flex-start' }}>
-    //                         <FlatList contentContainerStyle={styles.listContainerStyle}
-    //                             data={filteredBooks} renderItem={(books) =>
-    //                                 <DepartmentBookHolder iconPress={handleFavoriteList} icon={iconName} serial={books.index + 1} holderColor={books.item.color_code}
-    //                                     id={books.item.course_own_id}
-    //                                     bookTitle={books.item.course_name} />
-    //                             } style={{ width: '100%' }} />
-    //                     </View>
-    //                 </View>
-    //                 <View style={{ width: '100%', alignItems: 'flex-end', paddingHorizontal: '15%' }}>
-    //                     <DirectionButton color={'#fff'} size={24}
-    //                         direction={'add'} externalStyle={{ backgroundColor: '#E79C3D' }} />
-    //                 </View>
+    return (
+        <LinearGradient colors={['#252650', '#01010B']} style={styles.screen}>
+            <ImageBackground style={styles.screen} resizeMode="stretch"
+                source={require('../../assets/images/dashboard-bg-image.png')}>
 
-    //             </SafeAreaView>
-    //         </ImageBackground>
-    //     </LinearGradient>
-    // )
-};
+                <SafeAreaView style={styles.screen}>
+                    <KeyboardAvoidingView style={styles.screen}>
+                        <ScrollView style={styles.screen}>
 
+                            <View style={styles.container}>
+                                <MaterialIcons style={styles.icon} name={tappedDeptIcon} size={40} color={'#fff'} />
+                                <SettingModal toggleOff={toggleScreenMenu} state={screenMenuOff} />
+                                <TitleText exStyle={styles.titleText}>Available</TitleText>
+                                <TitleText exStyle={styles.titleText}>{tappedDeptTitle} Subjects.</TitleText>
+                                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={styles.horizontalScrollOuter} contentContainerStyle={styles.horizontalScrollInner} >
+                                    {subjectList}
+                                </ScrollView>
+                                <View style={{ marginTop: 30 }}>
+                                    <TitleText exStyle={{ fontSize: 20 }}>Recomended Books</TitleText>
+                                    <BookDescriptionCard />
+                                </View>
+                            </View>
 
-export default DepartmentBooksScreen;
+                        </ScrollView>
+
+                    </KeyboardAvoidingView>
+                </SafeAreaView>
+            </ImageBackground>
+        </LinearGradient>
+    );
+}
+
+export default SubjectsScreen;
 
 const styles = StyleSheet.create({
-    screenDefault: {
+    screen: {
         flex: 1,
-        alignItems: 'center',
         width: '100%',
     },
     container: {
-        alignItems: 'center',
-        width: '100%',
-        paddingHorizontal: 50,
-        paddingVertical: 40,
-        // backgroundColor: 'red',
-        minHeight: 600
-
+        flex: 1,
+        minWidth: '100%',
+        paddingHorizontal: '5%',
+        paddingVertical: '10%',
+    },
+    titleText: {
+        fontSize: 30
     },
     p: {
         color: '#fff',
         fontFamily: 'montserrat-bold'
     },
     header: {
-        marginBottom: 20
+        backgroundColor: '#252650'
     },
-
-    listContainerStyle: {
-        width: '100%',
+    icon: {
+        marginBottom: 10
+    },
+    horizontalScrollOuter: {
+        paddingHorizontal: 30,
+        width: '130%',
+        alignSelf: 'center'
+    },
+    horizontalScrollInner: {
+        width: '150%',
         justifyContent: 'flex-start',
-        marginTop: 10
+        flexWrap: 'wrap',
+        flexGrow: true,
+        height: '100%',
+        padding: 10,
     }
 });
